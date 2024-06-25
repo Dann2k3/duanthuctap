@@ -17,7 +17,7 @@
             android:name=".DangKyActivity"
             android:exported="false" />
         <activity
-            android:name=".DangNhapActivity"
+            android:name=".Tab_Giaodien_Activity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -26,7 +26,7 @@
             android:name=".SplassActivity"
             android:exported="false" />
         <activity
-            android:name=".Tab_Giaodien_Activity"
+            android:name=".DangNhapActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
