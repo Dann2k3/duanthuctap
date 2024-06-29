@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:id="@+id/swiperefreshlayoutlichsu"
-    tools:context=".LichsuFragment">
+    tools:context=".fragment.LichsuFragment">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
