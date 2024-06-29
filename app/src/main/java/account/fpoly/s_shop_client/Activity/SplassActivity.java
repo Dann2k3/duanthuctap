@@ -1,10 +1,12 @@
-package account.fpoly.s_shop_client;
+package account.fpoly.s_shop_client.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import account.fpoly.s_shop_client.R;
 
 public class SplassActivity extends AppCompatActivity {
     @Override

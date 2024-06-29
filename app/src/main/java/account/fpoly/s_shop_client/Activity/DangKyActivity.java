@@ -1,4 +1,4 @@
-package account.fpoly.s_shop_client;
+package account.fpoly.s_shop_client.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import account.fpoly.s_shop_client.R;
 
 public class DangKyActivity extends AppCompatActivity {
 

@@ -1,11 +1,7 @@
 package account.fpoly.s_shop_client.Modal;
 
-import android.util.Size;
-
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductModal {
@@ -17,7 +13,7 @@ public class ProductModal {
     private  String description;
     private List<Size> sizes;
     private  CatModal id_cat;
-    //    private String image;
+//    private String image;
     private String gianhap;
 
     List<ImageItem> images;
@@ -118,6 +114,13 @@ public class ProductModal {
         this.id_cat = id_cat;
     }
 
+//    public String getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(String image) {
+//        this.image = image;
+//    }
 
     public String getImportPrice() {
         return gianhap;

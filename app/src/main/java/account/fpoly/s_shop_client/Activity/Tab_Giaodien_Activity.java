@@ -1,4 +1,4 @@
-package account.fpoly.s_shop_client;
+package account.fpoly.s_shop_client.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,6 +8,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import account.fpoly.s_shop_client.fragment.GiohangFragment;
+import account.fpoly.s_shop_client.fragment.HomeFragment;
+import account.fpoly.s_shop_client.fragment.LichsuFragment;
+import account.fpoly.s_shop_client.R;
+import account.fpoly.s_shop_client.fragment.SettingFragment;
 import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
