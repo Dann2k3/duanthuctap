@@ -1,4 +1,4 @@
-package account.fpoly.s_shop_client;
+package account.fpoly.s_shop_client.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import account.fpoly.s_shop_client.R;
 
 public class DangNhapActivity extends AppCompatActivity {
     @Override
