@@ -28,8 +28,10 @@ import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import account.fpoly.s_shop_client.API.API;
 import account.fpoly.s_shop_client.Modal.ProductModal;
 import account.fpoly.s_shop_client.R;
+import account.fpoly.s_shop_client.Service.IClickItemListener;
 
 public class ProductNewAdapter extends RecyclerView.Adapter<ProductNewAdapter.ProductNewViewHolder> {
     private final List<ProductModal> list;

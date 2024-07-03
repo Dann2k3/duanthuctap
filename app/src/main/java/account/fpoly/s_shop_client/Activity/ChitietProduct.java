@@ -2,6 +2,8 @@ package account.fpoly.s_shop_client.Activity;
 
 import static java.lang.String.valueOf;
 
+import static account.fpoly.s_shop_client.API.API_User.gson;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,10 +55,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import account.fpoly.s_shop_client.API.API;
+import account.fpoly.s_shop_client.ImageBig;
 import account.fpoly.s_shop_client.Modal.BillMore;
 import account.fpoly.s_shop_client.Modal.Cart;
 import account.fpoly.s_shop_client.Modal.ProductModal;
+import account.fpoly.s_shop_client.MuaProduct;
 import account.fpoly.s_shop_client.R;
+import account.fpoly.s_shop_client.Service.ApiService;
 import account.fpoly.s_shop_client.Tools.ACCOUNT;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -122,7 +128,7 @@ public class ChitietProduct extends AppCompatActivity {
         sizechart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), Size_Chart.class));
+//                startActivity(new Intent(getBaseContext(), Size_Chart.class));
             }
         });
         linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +141,7 @@ public class ChitietProduct extends AppCompatActivity {
         img_chuyen_gh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ChitietProduct.this, TabCartActivity.class));
+                startActivity(new Intent(ChitietProduct.this, Tab_Giaodien_Activity.class));
             }
         });
         btn_add_cart = findViewById(R.id.btn_add_detail);
@@ -288,8 +294,6 @@ public class ChitietProduct extends AppCompatActivity {
     private void showBottomSheet(boolean buyNow) {
         SharedPreferences sharedPreferences = getSharedPreferences("product", MODE_PRIVATE);
         decimalFormat = new DecimalFormat("#,###");
-
-
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ChitietProduct.this, R.style.BottomSheetDialogTheme);
         View bottomView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_dialog,

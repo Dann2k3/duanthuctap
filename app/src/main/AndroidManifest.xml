@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,9 +24,6 @@
             android:name=".Activity.ChitietProduct"
             android:exported="false" />
         <activity
-            android:name=".Activity.DaGiao_activity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.ContactUsActivity"
             android:exported="false" />
         <activity
@@ -29,7 +33,7 @@
             android:name=".Activity.ChooseAddressActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.AddressActivity"
+            android:name=".Activity.DangKyActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.AddCommentActivity"
@@ -37,32 +41,14 @@
         <activity
             android:name=".Activity.AddAddressActivity"
             android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".DangGiao_Activity"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".DaGiao_activity"-->
+<!--            android:exported="false" />-->
         <activity
-            android:name=".DangGiao_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".DaGiao_activity"
-            android:exported="false" />
-        <activity
-            android:name=".ContactUsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CommentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChooseAddressActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Modal.Chat_Admin"
-            android:exported="false" />
-        <activity
-            android:name=".AddressActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddCommentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddAddressActivity"
+            android:name=".Activity.Chat_Admin"
             android:exported="false" />
         <activity
             android:name=".Activity.DangKyActivity"
@@ -77,7 +63,7 @@
             android:name=".Activity.SplassActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.DangNhapActivity"
+            android:name=".Activity.AddressActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

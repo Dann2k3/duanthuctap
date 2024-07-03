@@ -25,9 +25,12 @@ import com.bumptech.glide.Glide;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import account.fpoly.s_shop_client.API.API;
+import account.fpoly.s_shop_client.API.API_User;
 import account.fpoly.s_shop_client.Activity.AddressActivity;
 import account.fpoly.s_shop_client.Activity.DangNhapActivity;
 import account.fpoly.s_shop_client.Activity.SplassActivity;
+import account.fpoly.s_shop_client.InfoUserActivity;
 import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Tools.ACCOUNT;
 
@@ -76,20 +79,20 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        contactus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ContactUsActivity.class);
-                startActivity(intent);
-            }
-        });
-        ln_thongbao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), NotifyActivity.class);
-                startActivity(intent);
-            }
-        });
+//        contactus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), ContactUsActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        ln_thongbao.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), NotifyActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         ln_diachi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,44 +101,39 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        updatepass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Update_PassWord.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
-        huyBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), HuyBill.class));
-            }
-        });
-//        ln_thongtin.setOnClickListener(new View.OnClickListener() {
+//        updatepass.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(getContext(), thongtinUser.class));
+//                Intent intent = new Intent(getContext(), Update_PassWord.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
 //            }
 //        });
-        linnerXacnhan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), Xacnhan_Bill.class));
-            }
-        });
-        xacnhanPro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), DaGiao_activity.class));
-            }
-        });
-        linnerDanggiao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), DangGiao_Activity.class));
-            }
-        });
+//        huyBill.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), HuyBill.class));
+//            }
+//        });
+//
+//        linnerXacnhan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), Xacnhan_Bill.class));
+//            }
+//        });
+//        xacnhanPro.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), DaGiao_activity.class));
+//            }
+//        });
+//        linnerDanggiao.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), DangGiao_Activity.class));
+//            }
+//        });
         loadInfomation();
 
         SharedPreferences sharedPreferences= getContext().getSharedPreferences("infoUser", getContext().MODE_PRIVATE);

@@ -43,6 +43,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import account.fpoly.s_shop_client.API.API;
+import account.fpoly.s_shop_client.API.API_Product;
+import account.fpoly.s_shop_client.Activity.ChitietProduct;
+import account.fpoly.s_shop_client.Activity.SplassActivity;
 import account.fpoly.s_shop_client.Adapter.ProductAdapter;
 import account.fpoly.s_shop_client.Adapter.ProductNewAdapter;
 import account.fpoly.s_shop_client.CustomDialog;
@@ -50,6 +54,7 @@ import account.fpoly.s_shop_client.Modal.CatModal;
 import account.fpoly.s_shop_client.Modal.ProductModal;
 import account.fpoly.s_shop_client.Modal.ReceProduct;
 import account.fpoly.s_shop_client.R;
+import account.fpoly.s_shop_client.Service.IClickItemListener;
 import account.fpoly.s_shop_client.Tools.ACCOUNT;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -176,8 +181,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     }
                 });
                 ghetName();
-
-
                 dialog1.show();
             }
         });
@@ -357,7 +360,7 @@ private void callApiSeviceListProductHot() {
                     onClickGoToDetailProduct(productModal);
                 }
             });
-            rcv_new.setAdapter(productNewAdapter);
+                    rcv_new.setAdapter(productNewAdapter);
             productNewAdapter.notifyDataSetChanged();
         }
 
@@ -405,25 +408,6 @@ private void onClickGoToDetailProduct(ProductModal productModal) {
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(normalizedText).replaceAll("").toLowerCase();
     }
-    //
-//    private void loadInfomation() {
-//
-//        if (ACCOUNT.user == null) {
-//            ln_cart_emty.setVisibility(View.VISIBLE);
-//            btn_buy_cart.setText("Bạn cần đăng nhập để  sử dụng chức năng này ");
-//            btn_buy_cart.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    startActivity(new Intent(getActivity(), SplassActivity.class));
-//                }
-//            });
-//            return;
-//        }else {
-//            Intent intent = new Intent(getContext(), NotifyActivity.class);
-//            startActivity(intent);
-//        }
-//
-//    }
 
     @Override
     public void onRefresh() {

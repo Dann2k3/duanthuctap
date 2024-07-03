@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,8 +28,10 @@ import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import account.fpoly.s_shop_client.API.API;
 import account.fpoly.s_shop_client.Modal.ProductModal;
 import account.fpoly.s_shop_client.R;
+import account.fpoly.s_shop_client.Service.IClickItemListener;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHoder> {
     private final List<ProductModal> list;
@@ -43,17 +44,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+    }
 
-        public void setOnItemClickListener(OnItemClickListener listener) {
-            this.listener = listener;
-        }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
-        public ProductAdapter(List<ProductModal> list, Context context, IClickItemListener iClickItemListener) {
-            this.list = list;
-            this.context=context;
-            this.iClickItemListener = iClickItemListener;
-            notifyDataSetChanged();
-        }
+    public ProductAdapter(List<ProductModal> list, Context context, IClickItemListener iClickItemListener) {
+        this.list = list;
+        this.context=context;
+        this.iClickItemListener = iClickItemListener;
+        notifyDataSetChanged();
     }
     @NonNull
     @Override
