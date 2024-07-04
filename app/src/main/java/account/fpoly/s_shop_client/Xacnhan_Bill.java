@@ -24,9 +24,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import Adapter.StatusBillAdapter;
 import account.fpoly.s_shop_client.API.API;
 import account.fpoly.s_shop_client.API.API_Bill;
+import account.fpoly.s_shop_client.Adapter.StatusBillAdapter;
 import account.fpoly.s_shop_client.Modal.BillMore;
 import account.fpoly.s_shop_client.Modal.Cart;
 import account.fpoly.s_shop_client.Modal.ReceBillMores;

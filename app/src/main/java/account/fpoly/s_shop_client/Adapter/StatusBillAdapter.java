@@ -1,4 +1,4 @@
-package Adapter;
+package account.fpoly.s_shop_client.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -64,4 +64,5 @@ public class StatusBillAdapter extends RecyclerView.Adapter<StatusBillAdapter.St
         }
     }
 }
+
 
