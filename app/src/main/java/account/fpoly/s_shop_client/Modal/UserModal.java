@@ -21,9 +21,9 @@ public class UserModal implements Serializable {
     private String tokenNotify;
 
 
-     String currentPassword;
-     String newPassword;
-     String confirmPassword;
+    String currentPassword;
+    String newPassword;
+    String confirmPassword;
 
     public String getCurrentPassword() {
         return currentPassword;
@@ -86,11 +86,7 @@ public class UserModal implements Serializable {
         this.role = role;
     }
 
-<<<<<<< HEAD
-    public UserModal(String username, String password, String email, String phone, String dob, String fullname, String tokenNotify ) {
-=======
     public UserModal(String username, String password, String email, String phone, String dob,  String fullname, String tokenNotify ) {
->>>>>>> origin/master
         this.username = username;
         this.password = password;
         this.email = email;
