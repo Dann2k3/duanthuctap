@@ -82,7 +82,7 @@ public class ContactUsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Define the URL you want to open
-                String url = "https://dribbble.com/shots/22649434-Contact-Us-Screen";
+                String url = "https://www.facebook.com/";
 
                 // Use an Intent to open the URL in a web browser
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
