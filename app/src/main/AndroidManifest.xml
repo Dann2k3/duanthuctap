@@ -63,7 +63,7 @@
             android:name=".Activity.SplassActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.AddressActivity"
+            android:name=".Activity.DangNhapActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
