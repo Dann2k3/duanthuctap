@@ -21,9 +21,9 @@ public class UserModal implements Serializable {
     private String tokenNotify;
 
 
-     String currentPassword;
-     String newPassword;
-     String confirmPassword;
+    String currentPassword;
+    String newPassword;
+    String confirmPassword;
 
     public String getCurrentPassword() {
         return currentPassword;
