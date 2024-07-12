@@ -33,7 +33,7 @@
             android:name=".Activity.CommentActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.ChooseAddressActivity"
+            android:name=".Activity.Tab_Giaodien_Activity"
             android:exported="false" />
         <activity
             android:name=".Activity.DangKyActivity"
@@ -44,20 +44,17 @@
         <activity
             android:name=".Activity.AddAddressActivity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".DangGiao_Activity"-->
-<!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".DaGiao_activity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".DangGiao_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".DaGiao_activity"
+            android:exported="false" />
         <activity
             android:name=".Activity.Chat_Admin"
             android:exported="false" />
         <activity
-            android:name=".Activity.DangKyActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.Tab_Giaodien_Activity"
+            android:name=".Activity.ChooseAddressActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
