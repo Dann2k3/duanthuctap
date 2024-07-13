@@ -63,6 +63,7 @@ import account.fpoly.s_shop_client.Modal.ProductModal;
 import account.fpoly.s_shop_client.MuaProduct;
 import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Service.ApiService;
+import account.fpoly.s_shop_client.Size_Chart;
 import account.fpoly.s_shop_client.Tools.ACCOUNT;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -128,7 +129,7 @@ public class ChitietProduct extends AppCompatActivity {
         sizechart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(getBaseContext(), Size_Chart.class));
+                startActivity(new Intent(getBaseContext(), Size_Chart.class));
             }
         });
         linearLayout.setOnClickListener(new View.OnClickListener() {
