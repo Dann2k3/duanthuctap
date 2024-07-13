@@ -18,6 +18,7 @@ import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Tools.ADDRESS;
 
 public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHolder> {
+
     private final Context context;
     private List<Province> list;
 
@@ -34,6 +35,7 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
         this.list = list;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public ProvinceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,7 +59,13 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
 
     @Override
     public int getItemCount() {
-        return (list != null) ? list.size() : 0;
+        if (list != null) {
+            if (ADDRESS.province != null) {
+                return 1;
+            }
+            return list.size();
+        }
+        return 0;
     }
 
     public static class ProvinceViewHolder extends RecyclerView.ViewHolder {

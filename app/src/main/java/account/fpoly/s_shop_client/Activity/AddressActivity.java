@@ -20,10 +20,12 @@ import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Tools.LIST;
 
 public class AddressActivity extends AppCompatActivity {
+
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private AddressAdapter adapter;
     private LinearLayout ln_add_address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +35,7 @@ public class AddressActivity extends AppCompatActivity {
         getListAddress();
         addAddress();
     }
-    //
-    private void mapping() {
-        toolbar = findViewById(R.id.toolbar_address);
-        ln_add_address = findViewById(R.id.ln_add_address);
-        recyclerView = findViewById(R.id.rcv_address);
-    }
-    //
-    private void setToolbar() {
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.title_address);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-    //
+
     private void getListAddress() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(AddressActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -62,7 +52,13 @@ public class AddressActivity extends AppCompatActivity {
         adapter.setData(LIST.listAddress);
         recyclerView.setAdapter(adapter);
     }
-    //
+
+    private void mapping() {
+        toolbar = findViewById(R.id.toolbar_address);
+        ln_add_address = findViewById(R.id.ln_add_address);
+        recyclerView = findViewById(R.id.rcv_address);
+    }
+
     private void addAddress() {
         ln_add_address.setOnClickListener(v -> {
             Intent intent = new Intent(AddressActivity.this, AddAddressActivity.class);
@@ -70,6 +66,14 @@ public class AddressActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.next_enter, R.anim.next_exit);
         });
     }
+
+    private void setToolbar() {
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.title_address);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -98,4 +102,5 @@ public class AddressActivity extends AppCompatActivity {
         super.onDestroy();
         getIntent().removeExtra("choose");
     }
+
 }

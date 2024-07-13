@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Tools.TOOLS;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressviewHolder> {
+
     private final Context context;
     private List<Address> list;
     private final boolean choose;
@@ -38,6 +41,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.Addressv
         this.list = list;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public AddressviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -118,4 +122,5 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.Addressv
 
         }
     }
+
 }

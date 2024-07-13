@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
@@ -9,22 +10,28 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.CALL_PHONE"
+    <uses-permission
+        android:name="android.permission.CALL_PHONE"
         tools:ignore="PermissionImpliesUnsupportedChromeOsHardware" />
+
     <application
         android:name=".Application.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_sshop"
         android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_sshop"
         android:supportsRtl="true"
         android:theme="@style/Theme.DATNClient"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.ChitietProduct"
+            android:name=".Activity.ForgetPassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AddressActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.ContactUsActivity"
@@ -33,7 +40,7 @@
             android:name=".Activity.CommentActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Tab_Giaodien_Activity"
+            android:name=".Activity.ChooseAddressActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.DangKyActivity"
@@ -54,8 +61,8 @@
             android:name=".Activity.Chat_Admin"
             android:exported="false" />
         <activity
-            android:name=".Activity.ChooseAddressActivity"
-            android:exported="true" >
+            android:name=".Activity.Tab_Giaodien_Activity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,9 +81,8 @@
             android:exported="false" />
         <activity
             android:name=".Activity.DangNhapActivity"
-            android:exported="true">
+            android:exported="false" />
 
-        </activity>
         <service
             android:name=".Service.MyFirebaseMessagingService"
             android:exported="false">

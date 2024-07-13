@@ -3,14 +3,7 @@ package account.fpoly.s_shop_client.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -25,8 +18,18 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,11 +40,13 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.security.InvalidParameterException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import account.fpoly.s_shop_client.API.API;
 import account.fpoly.s_shop_client.API.API_Product;
@@ -53,16 +58,19 @@ import account.fpoly.s_shop_client.GiaoDien.ChitietProduct;
 import account.fpoly.s_shop_client.Modal.CatModal;
 import account.fpoly.s_shop_client.Modal.ProductModal;
 import account.fpoly.s_shop_client.Modal.ReceProduct;
+import account.fpoly.s_shop_client.Notification;
 import account.fpoly.s_shop_client.NotifyActivity;
 import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Service.IClickItemListener;
 import account.fpoly.s_shop_client.Tools.ACCOUNT;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+
     public static final String TAG = HomeFragment.class.getName();
     EditText etd_timkiem;
     ImageView chat_admin, notification, dialog;
@@ -79,11 +87,13 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     String maxPrice = null;
     LinearLayout nameLayout;
     Button btn_buy_cart;
+    //    private SwipeRefreshLayout refresh;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         // Truyền dữ liệu vào Chi Tiết Activity
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -291,7 +301,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d("gggg", "onFailure:" + error);
             }
         });
         requestQueue.add(jsonObjectRequest);

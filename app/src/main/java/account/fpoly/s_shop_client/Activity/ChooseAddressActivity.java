@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChooseAddressActivity extends AppCompatActivity {
+
     private boolean exit;
     private Toolbar toolbar;
     private RecyclerView rcv_province, rcv_district, rcv_ward;
@@ -41,6 +43,7 @@ public class ChooseAddressActivity extends AppCompatActivity {
     private DistrictAdapter districtAdapter;
     private WardAdapter wardAdapter;
     private Button btn_submit_select_address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,7 @@ public class ChooseAddressActivity extends AppCompatActivity {
         submit();
         whenGoBack();
     }
+
     private void mapping() {
         toolbar = findViewById(R.id.toolbar_choose_address);
         rcv_province = findViewById(R.id.rcv_choose_province);
@@ -60,13 +64,27 @@ public class ChooseAddressActivity extends AppCompatActivity {
         tv_ward = findViewById(R.id.tv_ward);
         btn_submit_select_address = findViewById(R.id.btn_submit_select_address);
     }
-    //
-    private void setToolbar() {
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.title_choose_address);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    private void whenGoBack() {
+        if (ADDRESS.province != null) {
+            if (ADDRESS.district != null) {
+                setDistrict(true);
+                if (ADDRESS.ward != null) {
+                    setWard(true);
+                }
+            }
+        }
     }
-    //
+
+    private void submit() {
+        btn_submit_select_address.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra("data", ADDRESS.ward.getPath_with_type());
+            setResult(RESULT_OK, intent);
+            back();
+        });
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     private void setProvices() {
         setLayout(rcv_province);
@@ -85,7 +103,7 @@ public class ChooseAddressActivity extends AppCompatActivity {
         rcv_province.setAdapter(provinceAdapter);
         getListProvince();
     }
-    //tỉnh TP
+
     private void getListProvince() {
         ApiService.apiService.getProvinces().enqueue(new Callback<List<Province>>() {
             @Override
@@ -111,7 +129,7 @@ public class ChooseAddressActivity extends AppCompatActivity {
             }
         });
     }
-//Quận Huyện
+
     @SuppressLint("NotifyDataSetChanged")
     private void setDistrict(boolean show) {
         if (!show) {
@@ -138,7 +156,7 @@ public class ChooseAddressActivity extends AppCompatActivity {
         rcv_district.setAdapter(districtAdapter);
         getListDistrict();
     }
-    //Phường xóm
+
     @SuppressLint("NotifyDataSetChanged")
     private void setWard(boolean show) {
         if (!show) {
@@ -187,6 +205,7 @@ public class ChooseAddressActivity extends AppCompatActivity {
             }
         });
     }
+
     private void setSubmit(boolean show) {
         if (!show) {
             btn_submit_select_address.setVisibility(View.GONE);
@@ -226,30 +245,13 @@ public class ChooseAddressActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(ChooseAddressActivity.this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
     }
-    //
-    private void submit() {
-        btn_submit_select_address.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.putExtra("data", ADDRESS.ward.getPath_with_type());
-            setResult(RESULT_OK, intent);
-            back();
-        });
+
+    private void setToolbar() {
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.title_choose_address);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    private void back() {
-        finish();
-        overridePendingTransition(R.anim.prev_enter, R.anim.prev_exit);
-    }
-    //
-    private void whenGoBack() {
-        if (ADDRESS.province != null) {
-            if (ADDRESS.district != null) {
-                setDistrict(true);
-                if (ADDRESS.ward != null) {
-                    setWard(true);
-                }
-            }
-        }
-    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -257,6 +259,14 @@ public class ChooseAddressActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void back() {
+        finish();
+        overridePendingTransition(R.anim.prev_enter, R.anim.prev_exit);
+    }
+
+
+
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ChooseAddressActivity.this);
@@ -275,5 +285,4 @@ public class ChooseAddressActivity extends AppCompatActivity {
         });
         builder.create().show();
     }
-
 }

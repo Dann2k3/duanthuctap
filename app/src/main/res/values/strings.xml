@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">DATN-Client</string>
-
     <string name="title_uppdate_address">Sửa địa chỉ</string>
     <string name="title_add_address">Thêm địa chỉ mới</string>
     <string name="title_choose_address">Chọn vị trí</string>

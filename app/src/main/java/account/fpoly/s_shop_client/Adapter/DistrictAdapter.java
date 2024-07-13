@@ -17,7 +17,8 @@ import account.fpoly.s_shop_client.Modal.District;
 import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Tools.ADDRESS;
 
-public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.DistrictViewHolder>  {
+public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.DistrictViewHolder> {
+
     private final Context context;
     private List<District> list;
 
@@ -27,11 +28,13 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.Distri
         this.context = context;
         this.districtOnClick = districtOnClick;
     }
+
     @SuppressLint("NotifyDataSetChanged")
     public void setData(List<District> list) {
         this.list = list;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public DistrictViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,7 +58,13 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.Distri
 
     @Override
     public int getItemCount() {
-        return (list != null) ? list.size() : 0;
+        if (list != null) {
+            if (ADDRESS.district != null) {
+                return 1;
+            }
+            return list.size();
+        }
+        return 0;
     }
 
     public static class DistrictViewHolder extends RecyclerView.ViewHolder {

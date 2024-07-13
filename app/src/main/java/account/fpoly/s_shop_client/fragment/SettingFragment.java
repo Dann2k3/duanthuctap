@@ -1,12 +1,10 @@
 package account.fpoly.s_shop_client.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +24,8 @@ import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.Arrays;
 
 import account.fpoly.s_shop_client.API.API;
 import account.fpoly.s_shop_client.API.API_User;
@@ -41,13 +43,12 @@ import account.fpoly.s_shop_client.Tools.ACCOUNT;
 import account.fpoly.s_shop_client.Update_PassWord;
 import account.fpoly.s_shop_client.Xacnhan_Bill;
 
-
 public class SettingFragment extends Fragment {
     ImageView imginfo, imghistory;
     String image,curidUser,fullname,sdt;
     TextView txtfullname,txtsdt,txtdiachi;
     API_User api_user;
-    LinearLayout linnerXacnhan,linnerDanggiao,xacnhanPro,huyBill,ln_thongbao,ln_diachi,ln_ds;
+    LinearLayout linnerXacnhan,linnerDanggiao,xacnhanPro,huyBill,ln_thongtin,ln_thongbao,ln_diachi,ln_ds;
     LinearLayout ln_cart_emty,updatepass,contactus;
     Button btn_buy_cart;
     @SuppressLint("MissingInflatedId")
@@ -67,6 +68,7 @@ public class SettingFragment extends Fragment {
         huyBill = view.findViewById(R.id.huyBill);
         ln_cart_emty=view.findViewById(R.id.ln_cart_emty);
         btn_buy_cart=view.findViewById(R.id.btn_buy_cart);
+//        ln_thongtin=view.findViewById(R.id.ln_thongtin);
         updatepass=view.findViewById(R.id.updatepass);
         contactus = view.findViewById(R.id.contact_us);
         ln_thongbao= view.findViewById(R.id.ln_thongbao_setting);
@@ -84,6 +86,10 @@ public class SettingFragment extends Fragment {
                 startActivity(intent);
 
             }
+
+
+
+
         });
 
         contactus.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +128,12 @@ public class SettingFragment extends Fragment {
                 startActivity(new Intent(getContext(), HuyBill.class));
             }
         });
-
+//        ln_thongtin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), thongtinUser.class));
+//            }
+//        });
         linnerXacnhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +153,12 @@ public class SettingFragment extends Fragment {
             }
         });
         loadInfomation();
-
+//        imghistory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(getContext(), HistoryOrderClient.class));
+//            }
+//        });
         SharedPreferences sharedPreferences= getContext().getSharedPreferences("infoUser", getContext().MODE_PRIVATE);
         image=sharedPreferences.getString("image",null);
         curidUser=sharedPreferences.getString("iduser",null);
@@ -248,4 +264,5 @@ public class SettingFragment extends Fragment {
         });
         requestQueue.add(jsonObjectRequest);
     }
+
 }
