@@ -33,7 +33,7 @@
             android:name=".Activity.CommentActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.ChooseAddressActivity"
+            android:name=".Activity.Tab_Giaodien_Activity"
             android:exported="false" />
         <activity
             android:name=".Activity.DangKyActivity"
@@ -54,7 +54,7 @@
             android:name=".Activity.Chat_Admin"
             android:exported="false" />
         <activity
-            android:name=".Activity.Tab_Giaodien_Activity"
+            android:name=".Activity.ChooseAddressActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -74,7 +74,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.DangNhapActivity"
-            android:exported="false">
+            android:exported="true">
 
         </activity>
         <service

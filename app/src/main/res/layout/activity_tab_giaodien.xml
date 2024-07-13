@@ -7,16 +7,17 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context=".Activity.Tab_Giaodien_Activity">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/body_contaiber"
-    android:layout_above="@+id/bottom_navigation"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginStart="0dp"
-    android:layout_marginTop="0dp"
-    android:layout_marginBottom="0dp" />
+    <RelativeLayout
+        android:id="@+id/body_contaiber"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp" />
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
@@ -26,11 +27,12 @@
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="2dp"
         app:backgroundColor="#E91E63"
         app:indicatorRadius="10dp"
+        android:layout_toEndOf="@+id/frameLayout"
         app:menu="@menu/iteam_menu" />
 
 </RelativeLayout>

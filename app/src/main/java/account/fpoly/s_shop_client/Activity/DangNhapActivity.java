@@ -51,7 +51,7 @@ public class DangNhapActivity extends AppCompatActivity {
     private UserModal mUser;
     private Retrofit retrofit;
     private ServiceUser serviceUser;
-    private String url = "http://192.168.2.39:3000";
+    private String url = "http://192.168.0.105:3000";
     CheckBox savepass;
     @SuppressLint("MissingInflatedId")
     @Override

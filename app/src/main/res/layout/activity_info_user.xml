@@ -173,7 +173,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="VanHai@gmail.com"
+                            android:hint="1234@gmail.com"
                             android:background="@android:color/transparent"
                             android:textSize="20dp"
                             android:textColor="@color/black"
@@ -297,22 +297,6 @@
                             android:layout_marginTop="40dp"
                             />
                     </LinearLayout>
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginBottom="15dp"-->
-<!--                        >-->
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:textSize="18dp"-->
-<!--                            android:textColor="@color/colorAccrnt"-->
-<!--                            android:text="Xóa tài khoản"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:gravity="center"-->
-<!--                            />-->
-<!--                    </LinearLayout>-->
-
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

@@ -45,14 +45,15 @@ import java.util.regex.Pattern;
 
 import account.fpoly.s_shop_client.API.API;
 import account.fpoly.s_shop_client.API.API_Product;
-import account.fpoly.s_shop_client.Activity.ChitietProduct;
 import account.fpoly.s_shop_client.Activity.SplassActivity;
 import account.fpoly.s_shop_client.Adapter.ProductAdapter;
 import account.fpoly.s_shop_client.Adapter.ProductNewAdapter;
 import account.fpoly.s_shop_client.CustomDialog;
+import account.fpoly.s_shop_client.GiaoDien.ChitietProduct;
 import account.fpoly.s_shop_client.Modal.CatModal;
 import account.fpoly.s_shop_client.Modal.ProductModal;
 import account.fpoly.s_shop_client.Modal.ReceProduct;
+import account.fpoly.s_shop_client.NotifyActivity;
 import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Service.IClickItemListener;
 import account.fpoly.s_shop_client.Tools.ACCOUNT;
@@ -83,6 +84,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        // Truyền dữ liệu vào Chi Tiết Activity
         Bundle bundle = getArguments();
         if (bundle != null) {
             tenProduct = bundle.getString("tenProduct");
@@ -110,8 +112,21 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
         listproduct = new ArrayList<>();
+
+//          refresh.setOnRefreshListener(this);
+
+//          refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//              @Override
+//              public void onRefresh() {
+//                  callApiSeviceListProduct();
+//                  callApiSeviceListProductHot();
+//                  refresh.setRefreshing(false);
+//              }
+//          });
         callApiSeviceListProduct();
         callApiSeviceListProductHot();
+
+
         dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,12 +190,15 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         maxPrice = null;
 
                     }
+
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
                         // Xử lý sự kiện khi không có mục nào được chọn trong Spinner
                     }
                 });
                 ghetName();
+
+
                 dialog1.show();
             }
         });
@@ -195,13 +213,15 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             @Override
             public void onClick(View view) {
 
-//                loadInfomation();
+                loadInfomation();
 
             }
         });
 
+
         return view;
     }
+
     private void ghetName() {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API.api + "filterproduct",
@@ -276,113 +296,114 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         });
         requestQueue.add(jsonObjectRequest);
     }
-//
-private void filterByPrice(String minPrice, String maxPrice) {
-    API_Product.apiProduct.filterProducts(minPrice, maxPrice).enqueue(new Callback<List<ProductModal>>() {
-        @Override
-        public void onResponse(Call<List<ProductModal>> call, Response<List<ProductModal>> response) {
-            if (response.isSuccessful()) {
-                listproduct.clear();
-                listproduct.addAll(response.body());
-                productAdapter.notifyDataSetChanged();
-                dialog1.dismiss();
+
+    private void filterByPrice(String minPrice, String maxPrice) {
+        API_Product.apiProduct.filterProducts(minPrice, maxPrice).enqueue(new Callback<List<ProductModal>>() {
+            @Override
+            public void onResponse(Call<List<ProductModal>> call, Response<List<ProductModal>> response) {
+                if (response.isSuccessful()) {
+                    listproduct.clear();
+                    listproduct.addAll(response.body());
+                    productAdapter.notifyDataSetChanged();
+                    dialog1.dismiss();
 
 
-            } else {
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductModal>> call, Throwable t) {
 
             }
-        }
+        });
+    }
 
-        @Override
-        public void onFailure(Call<List<ProductModal>> call, Throwable t) {
 
-        }
-    });
-}
-//
-private void callApiSeviceListProduct() {
-    API_Product.apiProduct.listProduct().enqueue(new Callback<ReceProduct>() {
-        @Override
-        public void onResponse(Call<ReceProduct> call, Response<ReceProduct> response) {
-            listproduct = response.body().getData();
-            productAdapter = new ProductAdapter(listproduct, getContext(), new IClickItemListener() {
-                @Override
-                public void onCLickItemProduct(ProductModal productModal) {
-                    onClickGoToDetailProduct(productModal);
-                }
-            });
-            recyclerView.setAdapter(productAdapter);
-            etd_timkiem.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    private void callApiSeviceListProduct() {
+        API_Product.apiProduct.listProduct().enqueue(new Callback<ReceProduct>() {
+            @Override
+            public void onResponse(Call<ReceProduct> call, Response<ReceProduct> response) {
+                listproduct = response.body().getData();
+                productAdapter = new ProductAdapter(listproduct, getContext(), new IClickItemListener() {
+                    @Override
+                    public void onCLickItemProduct(ProductModal productModal) {
+                        onClickGoToDetailProduct(productModal);
+                    }
+                });
+                recyclerView.setAdapter(productAdapter);
+                etd_timkiem.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                }
+                    }
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    String keyword = removeVietnameseDiacritics(etd_timkiem.getText().toString().trim());
-                    List<ProductModal> serarchResult = searchProducts(keyword);
-                    productAdapter = new ProductAdapter(serarchResult, getContext(), new IClickItemListener() {
-                        @Override
-                        public void onCLickItemProduct(ProductModal productModal) {
-                            onClickGoToDetailProduct(productModal);
-                        }
-                    });
-                    recyclerView.setAdapter(productAdapter);
-                }
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        String keyword = removeVietnameseDiacritics(etd_timkiem.getText().toString().trim());
+                        List<ProductModal> serarchResult = searchProducts(keyword);
+                        productAdapter = new ProductAdapter(serarchResult, getContext(), new IClickItemListener() {
+                            @Override
+                            public void onCLickItemProduct(ProductModal productModal) {
+                                onClickGoToDetailProduct(productModal);
+                            }
+                        });
+                        recyclerView.setAdapter(productAdapter);
+                    }
 
-                @Override
-                public void afterTextChanged(Editable editable) {
+                    @Override
+                    public void afterTextChanged(Editable editable) {
 
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(Call<ReceProduct> call, Throwable t) {
-            try {
-                throw t;
-            } catch (Throwable e) {
-                throw new RuntimeException(e);
+                    }
+                });
             }
-        }
-    });
-}
-//
-private void callApiSeviceListProductHot() {
-    API_Product.apiProduct.listProductNew().enqueue(new Callback<ReceProduct>() {
-        @Override
-        public void onResponse(Call<ReceProduct> call, Response<ReceProduct> response) {
-            listproduct = response.body().getData();
-            productNewAdapter = new ProductNewAdapter(listproduct, getContext(), new IClickItemListener() {
-                @Override
-                public void onCLickItemProduct(ProductModal productModal) {
-                    onClickGoToDetailProduct(productModal);
-                }
-            });
-                    rcv_new.setAdapter(productNewAdapter);
-            productNewAdapter.notifyDataSetChanged();
-        }
 
-        @Override
-        public void onFailure(Call<ReceProduct> call, Throwable t) {
-            try {
-                throw t;
-            } catch (Throwable e) {
-                throw new RuntimeException(e);
+            @Override
+            public void onFailure(Call<ReceProduct> call, Throwable t) {
+                try {
+                    throw t;
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
-    });
-}
-//
-private void onClickGoToDetailProduct(ProductModal productModal) {
-    Intent intent = new Intent(getContext(), ChitietProduct.class);
-    intent.putExtra("id", productModal.getId());
-    intent.putExtra("tenProduct", tenProduct);
-    intent.putExtra("giaProduct", giaProduct);
-    intent.putExtra("anhProduct", anhProduct);
-    startActivity(intent);
-}
+        });
+    }
+
+    private void callApiSeviceListProductHot() {
+        API_Product.apiProduct.listProductNew().enqueue(new Callback<ReceProduct>() {
+            @Override
+            public void onResponse(Call<ReceProduct> call, Response<ReceProduct> response) {
+                listproduct = response.body().getData();
+                productNewAdapter = new ProductNewAdapter(listproduct, getContext(), new IClickItemListener() {
+                    @Override
+                    public void onCLickItemProduct(ProductModal productModal) {
+                        onClickGoToDetailProduct(productModal);
+                    }
+                });
+                rcv_new.setAdapter(productNewAdapter);
+                productNewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ReceProduct> call, Throwable t) {
+                try {
+                    throw t;
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+    private void onClickGoToDetailProduct(ProductModal productModal) {
+        Intent intent = new Intent(getContext(), ChitietProduct.class);
+        intent.putExtra("id", productModal.getId());
+        intent.putExtra("tenProduct", tenProduct);
+        intent.putExtra("giaProduct", giaProduct);
+        intent.putExtra("anhProduct", anhProduct);
+        startActivity(intent);
+    }
 
     private List<ProductModal> searchProducts(String keyword) {
         List<ProductModal> filteredProducts = new ArrayList<>();
@@ -409,8 +430,34 @@ private void onClickGoToDetailProduct(ProductModal productModal) {
         return pattern.matcher(normalizedText).replaceAll("").toLowerCase();
     }
 
+    private void loadInfomation() {
+
+        if (ACCOUNT.user == null) {
+            ln_cart_emty.setVisibility(View.VISIBLE);
+            btn_buy_cart.setText("Bạn cần đăng nhập để  sử dụng chức năng này ");
+            btn_buy_cart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), SplassActivity.class));
+                }
+            });
+            return;
+        }else {
+            Intent intent = new Intent(getContext(), NotifyActivity.class);
+            startActivity(intent);
+        }
+
+    }
+
     @Override
     public void onRefresh() {
-
+//        productAdapter.notifyDataSetChanged();
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//refresh.setRefreshing(false);
+//            }
+//        },2000);
     }
 }
