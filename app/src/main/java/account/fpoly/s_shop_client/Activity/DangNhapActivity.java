@@ -45,14 +45,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DangNhapActivity extends AppCompatActivity {
-
     private TextInputEditText txtuser, txtpass;
     private List<UserModal> listUser = new ArrayList<>();
     private UserModal mUser;
     private Retrofit retrofit;
     private ServiceUser serviceUser;
-    private String url = "http://192.168.0.105:3000";
+    private String url = "http://192.168.0.106:3000";
     CheckBox savepass;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,22 +60,14 @@ public class DangNhapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dang_nhap);
         txtuser = findViewById(R.id.txt_username);
         txtpass = findViewById(R.id.txt_password);
-        savepass=findViewById(R.id.savePasswordCheckBox);
-        Button btndangnhap=findViewById(R.id.btn_DangNhap);
-        TextView btndangky=findViewById(R.id.tv_dangky);
+        savepass = findViewById(R.id.savePasswordCheckBox);
+        Button btndangnhap = findViewById(R.id.btn_DangNhap);
+        TextView btndangky = findViewById(R.id.tv_dangky);
 
         savepass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    // Lưu mật khẩu
-//                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putString("password", txtpass.getText().toString());
-//                    editor.putString("username",txtuser.getText().toString());
-//                    editor.putBoolean("savePassword", true);
-//                    editor.apply();
-
                     String password = txtpass.getText().toString();
                     String username = txtuser.getText().toString();
                     if (!username.isEmpty() && !password.isEmpty()) {
@@ -106,10 +98,6 @@ public class DangNhapActivity extends AppCompatActivity {
         if (isPasswordSaved) {
             String savedUsername = sharedPreferences.getString("username", "");
             String savedPassword = sharedPreferences.getString("password", "");
-//            txtpass.setText(savedPassword);
-//            txtuser.setText(savedUsername);
-//            savepass.setChecked(true);
-
             if (!savedPassword.isEmpty()) {
                 txtpass.setText(savedPassword);
                 txtuser.setText(savedUsername);
@@ -126,8 +114,8 @@ public class DangNhapActivity extends AppCompatActivity {
         btndangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // startActivity(new Intent(DangNhapActivity.this,Tab_Giaodien_Activity.class));
-               loginUser();
+                // startActivity(new Intent(DangNhapActivity.this,Tab_Giaodien_Activity.class));
+                loginUser();
             }
         });
         btndangky.setOnClickListener(new View.OnClickListener() {
@@ -153,11 +141,11 @@ public class DangNhapActivity extends AppCompatActivity {
         API_User.apiUser.login(userModal).enqueue(new Callback<UserModal>() {
             @Override
             public void onResponse(Call<UserModal> call, Response<UserModal> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     UserModal userModal1 = response.body();
                     TOOLS.saveUser(DangNhapActivity.this, userModal1);
                     ACCOUNT.user = userModal1;
-                    SharedPreferences preferences = getSharedPreferences("infoUser",MODE_PRIVATE);
+                    SharedPreferences preferences = getSharedPreferences("infoUser", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("fullname", userModal1.getFullname());
                     editor.putString("username", userModal1.getUsername());
@@ -170,76 +158,84 @@ public class DangNhapActivity extends AppCompatActivity {
                     editor.putString("iduser", userModal1.get_id());
                     editor.putString("token", userModal1.getToken());
                     editor.apply();
-                    if (userModal1.getRole().equalsIgnoreCase("User")){
-                        String token = TOOLS.getToken(DangNhapActivity.this);
-                        JSONObject postData = new JSONObject();
-                        try {
-                            postData.put("tokenNotify", token);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        String jsonString = postData.toString();
-
-                        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonString);
-                        ApiService.apiService.tokenNotify(ACCOUNT.user.get_id(), requestBody).enqueue(new Callback<Integer>() {
-                            @Override
-                            public void onResponse(@NonNull Call<Integer> call, @NonNull Response<Integer> response) {
-                                Log.e( "login: ", requestBody+"");
-                                if (response.isSuccessful()) {
-
-
-                                    userModal1.setToken(token);
-                                    Log.e( "onResponse: ", token);
-                                    TOOLS.saveUser(DangNhapActivity.this, userModal1);
-                                    ACCOUNT.user = userModal1;
-                                    startActivity(new Intent(getBaseContext(),Tab_Giaodien_Activity.class));
-                                    Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(@NonNull Call<Integer> call, @NonNull Throwable t) {
-                                Log.e( "login fail : ",  t.getMessage());
-                            }
-                        });
-                    }else if (userModal1.getRole().equalsIgnoreCase("Admin")){
-                        Toast.makeText(DangNhapActivity.this, "App dành  cho Khách Hàng ", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(DangNhapActivity.this, Tab_Giaodien_Activity.class));
+                    Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+//                    if (userModal1.getRole().equalsIgnoreCase("User")){
+                    String token = TOOLS.getToken(DangNhapActivity.this);
+                    JSONObject postData = new JSONObject();
+                    try {
+                        postData.put("tokenNotify", token);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                    String jsonString = postData.toString();
 
-                    ApiService.apiService.getAddress(userModal1.get_id()).enqueue(new Callback<List<Address>>() {
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonString);
+                    ApiService.apiService.tokenNotify(ACCOUNT.user.get_id(), requestBody).enqueue(new Callback<Integer>() {
                         @Override
-                        public void onResponse(@NonNull Call<List<Address>> call, @NonNull Response<List<Address>> response) {
+                        public void onResponse(@NonNull Call<Integer> call, @NonNull Response<Integer> response) {
+                            Log.e("login: ", requestBody + "");
                             if (response.isSuccessful()) {
-                                if (response.body() != null) {
-                                    LIST.listAddress = response.body();
-                                }
+                                userModal1.setToken(token);
+                                Log.e("onResponse: ", token);
+                                TOOLS.saveUser(DangNhapActivity.this, userModal1);
+                                ACCOUNT.user = userModal1;
+                                Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(DangNhapActivity.this, Tab_Giaodien_Activity.class));
                             }
-//                            gotoSettings();
                         }
 
                         @Override
-                        public void onFailure(@NonNull Call<List<Address>> call, @NonNull Throwable t) {
-//                            gotoSettings();
+                        public void onFailure(@NonNull Call<Integer> call, @NonNull Throwable t) {
+                            Log.e("login fail : ", t.getMessage());
                         }
                     });
-
-                    FirebaseMessaging.getInstance().subscribeToTopic("event")
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    String msg = "Subscribed";
-                                    if (!task.isSuccessful()) {
-                                        msg = "Subscribe failed";
-                                    }
-                                    Log.d("TAG", msg);
-                                }
-                            });
-
-                }else {
-                    Toast.makeText(DangNhapActivity.this, "Vui lòng kiếm tra lại tài khoản!!!", Toast.LENGTH_SHORT).show();
                 }
-
             }
+//                    else if (userModal1.getRole().equalsIgnoreCase("Admin")){
+//                        Toast.makeText(DangNhapActivity.this, "App dành  cho Khách Hàng ", Toast.LENGTH_SHORT).show();
+//                    }
+
+//                    ApiService.apiService.getAddress(userModal1.get_id()).enqueue(new Callback<List<Address>>() {
+//                        @Override
+//                        public void onResponse(@NonNull Call<List<Address>> call, @NonNull Response<List<Address>> response) {
+//                            if (response.isSuccessful()) {
+//                                if (response.body() != null) {
+//                                    LIST.listAddress = response.body();
+//                                }
+//                            }
+////                            gotoSettings();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(@NonNull Call<List<Address>> call, @NonNull Throwable t) {
+////                            gotoSettings();
+//                        }
+//                    });
+//
+//                    FirebaseMessaging.getInstance().subscribeToTopic("event")
+//                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<Void> task) {
+//                                    String msg = "Subscribed";
+//                                    if (!task.isSuccessful()) {
+//                                        msg = "Subscribe failed";
+//                                    }
+//                                    Log.d("TAG", msg);
+//                                }
+//                            });
+//
+//                }else {
+//                    Toast.makeText(DangNhapActivity.this, "Vui lòng kiếm tra lại tài khoản!!!", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<UserModal> call, Throwable t) {
+//
+//            }
+//        });
 
             @Override
             public void onFailure(Call<UserModal> call, Throwable t) {
@@ -247,7 +243,8 @@ public class DangNhapActivity extends AppCompatActivity {
             }
         });
     }
-    private void GetListUser(){
+
+            private void GetListUser(){
         retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         serviceUser = retrofit.create(ServiceUser.class);
         Call<List<UserModal>> call = serviceUser.getallUser();

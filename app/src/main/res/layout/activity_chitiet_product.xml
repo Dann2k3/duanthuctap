@@ -5,21 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-<<<<<<< HEAD
     tools:context=".Activity.ChitietProduct">
-=======
-    tools:context=".GiaoDien.ChitietProduct">
->>>>>>> origin/huy
 
     <ScrollView
         android:layout_width="match_parent"
         android:background="#ECE9E9"
-<<<<<<< HEAD
         android:layout_height="690dp">
-=======
-        android:layout_height="718dp">
->>>>>>> origin/huy
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,16 +70,7 @@
                             android:layout_height="26dp"
                             android:layout_marginTop="8dp"
                             android:src="@drawable/shoppingcart" />
-<<<<<<< HEAD
-=======
 
-                        <!--                        <ImageView-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="26dp"-->
-                        <!--                            android:layout_marginTop="8dp"-->
-                        <!--                            android:layout_weight="1"-->
-                        <!--                            android:src="@drawable/heart" />-->
->>>>>>> origin/huy
                     </LinearLayout>
 
 
@@ -150,55 +132,16 @@
                     android:layout_marginLeft="8dp"
                     android:background="@color/white"
                     >
-<<<<<<< HEAD
-                    <!--                    <androidx.cardview.widget.CardView-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        app:cardCornerRadius="4dp"-->
-                    <!--                        android:layout_gravity="center"-->
-                    <!--                        >-->
-                    <!--                        <TextView-->
-                    <!--                            android:layout_width="wrap_content"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:text=" Yêu thích "-->
-                    <!--                            android:background="#D35151"-->
-                    <!--                            android:textColor="@color/white"-->
-                    <!--                            android:layout_marginTop="10dp"-->
-                    <!--                            />-->
-                    <!--                    </androidx.cardview.widget.CardView>-->
-=======
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:cardCornerRadius="4dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        >-->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text=" Yêu thích "-->
-<!--                            android:background="#D35151"-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:layout_marginTop="10dp"-->
-<!--                            />-->
-<!--                    </androidx.cardview.widget.CardView>-->
->>>>>>> origin/huy
+
                     <TextView
                         android:id="@+id/chitiet_tenProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="8dp"
                         android:text="Kily.PH Korean Cotton Knitted V Neck Ringer Garter Crop Top Shirt 6A0178"
                         android:textSize="16dp" />
-=======
-                        android:text="Kily.PH Korean Cotton Knitted V Neck Ringer Garter Crop Top Shirt 6A0178"
-                        android:textSize="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="3dp"
-                        />
->>>>>>> origin/huy
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -271,43 +214,7 @@
                             />
                     </LinearLayout>
 
-<<<<<<< HEAD
-                    <!--                    <ImageView-->
-                    <!--                        android:layout_width="25dp"-->
-                    <!--                        android:layout_height="25dp"-->
-                    <!--                        android:layout_marginRight="10dp"-->
-                    <!--                        android:layout_marginLeft="20dp"-->
-                    <!--                        android:src="@drawable/heartblack" />-->
-                    <!--                    <ImageView-->
-                    <!--                        android:layout_width="25dp"-->
-                    <!--                        android:layout_height="25dp"-->
-                    <!--                        android:layout_marginRight="10dp"-->
-                    <!--                        android:src="@drawable/shareblack" />-->
-                    <!--                    <ImageView-->
-                    <!--                        android:id="@+id/img_chat"-->
-                    <!--                        android:layout_width="25dp"-->
-                    <!--                        android:layout_height="25dp"-->
-                    <!--                        android:layout_marginRight="10dp"-->
-                    <!--                        android:src="@drawable/messenger" />-->
-=======
-<!--                    <ImageView-->
-<!--                        android:layout_width="25dp"-->
-<!--                        android:layout_height="25dp"-->
-<!--                        android:layout_marginRight="10dp"-->
-<!--                        android:layout_marginLeft="20dp"-->
-<!--                        android:src="@drawable/heartblack" />-->
-<!--                    <ImageView-->
-<!--                        android:layout_width="25dp"-->
-<!--                        android:layout_height="25dp"-->
-<!--                        android:layout_marginRight="10dp"-->
-<!--                        android:src="@drawable/shareblack" />-->
-<!--                    <ImageView-->
-<!--                        android:id="@+id/img_chat"-->
-<!--                        android:layout_width="25dp"-->
-<!--                        android:layout_height="25dp"-->
-<!--                        android:layout_marginRight="10dp"-->
-<!--                        android:src="@drawable/messenger" />-->
->>>>>>> origin/huy
+
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -495,7 +402,7 @@ Return Policy 🔄
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tư vấn"
+                android:text="Hỗ trợ"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 />

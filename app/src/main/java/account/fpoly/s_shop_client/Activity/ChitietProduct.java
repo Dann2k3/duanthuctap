@@ -131,6 +131,7 @@ public class ChitietProduct extends AppCompatActivity {
 //                startActivity(new Intent(getBaseContext(), Size_Chart.class));
             }
         });
+
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -333,8 +334,8 @@ public class ChitietProduct extends AppCompatActivity {
         String qantity = decimalFormat.format(resul);
         totalQuantity.setText(qantity);
 
-//        String imageProduct = sharedPreferences.getString("anhProduct", null);
-//        Glide.with(getApplicationContext()).load(imageProduct).into(checkboxImgProduct);
+        String imageProduct = sharedPreferences.getString("anhProduct", null);
+        Glide.with(getApplicationContext()).load(imageProduct).into(checkboxImgProduct);
 
         RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API.api + "product?_id=" + idProduct, null,
