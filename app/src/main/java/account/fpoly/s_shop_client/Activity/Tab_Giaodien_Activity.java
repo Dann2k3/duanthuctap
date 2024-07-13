@@ -1,27 +1,34 @@
 package account.fpoly.s_shop_client.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.fragment.GiohangFragment;
 import account.fpoly.s_shop_client.fragment.HomeFragment;
 import account.fpoly.s_shop_client.fragment.LichsuFragment;
-import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.fragment.SettingFragment;
 import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
+
 public class Tab_Giaodien_Activity extends AppCompatActivity {
+
     SmoothBottomBar navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_giaodien);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Bundle bundle = new Bundle();

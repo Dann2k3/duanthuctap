@@ -13,6 +13,9 @@ import account.fpoly.s_shop_client.Modal.Notify;
 import account.fpoly.s_shop_client.Modal.Province;
 import account.fpoly.s_shop_client.Modal.Ward;
 import account.fpoly.s_shop_client.Tools.TOOLS;
+import account.fpoly.s_shop_client.model.CityResponse;
+import account.fpoly.s_shop_client.model.DistrictResponse;
+import account.fpoly.s_shop_client.model.WardResponse;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -31,7 +34,6 @@ public interface ApiService {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
-
     @GET("address/provinces")
     Call<List<Province>> getProvinces();
 
