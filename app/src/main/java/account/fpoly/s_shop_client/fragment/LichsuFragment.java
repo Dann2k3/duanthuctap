@@ -32,13 +32,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import account.fpoly.s_shop_client.API.API;
+import account.fpoly.s_shop_client.API.API_Bill;
 import account.fpoly.s_shop_client.Activity.SplassActivity;
 import account.fpoly.s_shop_client.Adapter.StatusBillAdapter;
 import account.fpoly.s_shop_client.Modal.BillMore;
 import account.fpoly.s_shop_client.Modal.Cart;
+import account.fpoly.s_shop_client.Modal.ReceBillMores;
 import account.fpoly.s_shop_client.NotifyActivity;
 import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Tools.ACCOUNT;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class LichsuFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
@@ -87,7 +91,7 @@ public class LichsuFragment extends Fragment implements SwipeRefreshLayout.OnRef
             }
         });
         hienthiHistoty();
-
+getListStatus();
         return view;
     }
 
@@ -157,7 +161,23 @@ public class LichsuFragment extends Fragment implements SwipeRefreshLayout.OnRef
         });
         requestQueue.add(jsonObjectRequest);
     }
+    private void getListStatus (){
+        int status = 5;
+        API_Bill.apiBill.getListBillMores(iduser,status).enqueue(new Callback<ReceBillMores>() {
+            @Override
+            public void onResponse(Call<ReceBillMores> call, retrofit2.Response<ReceBillMores> response) {
+                list = response.body().getData();
+                adapter = new StatusBillAdapter(getContext(),list);
+                rcv.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onFailure(Call<ReceBillMores> call, Throwable t) {
+
+            }
+        });
+    }
 
     @Override
     public void onRefresh() {

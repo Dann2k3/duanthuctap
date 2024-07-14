@@ -51,7 +51,7 @@ public class Xacnhan_Bill extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("infoUser",MODE_PRIVATE);
         iduser = preferences.getString("iduser", null);
         hienthiHistoty();
-//        getListStatus();
+        getListStatus();
 //        getnamePro();
     }
 

@@ -26,9 +26,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import account.fpoly.s_shop_client.API.API;
+import account.fpoly.s_shop_client.API.API_Bill;
 import account.fpoly.s_shop_client.Adapter.StatusBillAdapter;
 import account.fpoly.s_shop_client.Modal.BillMore;
 import account.fpoly.s_shop_client.Modal.Cart;
+import account.fpoly.s_shop_client.Modal.ReceBillMores;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class DaGiao_activity extends AppCompatActivity {
@@ -46,6 +50,7 @@ public class DaGiao_activity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("infoUser",MODE_PRIVATE);
         iduser = preferences.getString("iduser", null);
         hienthiHistoty();
+        getListStatus();
     }
     private void anhxa() {
         rcv = findViewById(R.id.rcv);
@@ -61,6 +66,7 @@ public class DaGiao_activity extends AppCompatActivity {
         list = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(getBaseContext());
         rcv.setLayoutManager(manager);
+
     }
     String idpro;
     private void hienthiHistoty() {
@@ -112,5 +118,22 @@ public class DaGiao_activity extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonObjectRequest);
+    }
+    private void getListStatus (){
+        int status = 3;
+        API_Bill.apiBill.getListBillMores(iduser,status).enqueue(new Callback<ReceBillMores>() {
+            @Override
+            public void onResponse(Call<ReceBillMores> call, retrofit2.Response<ReceBillMores> response) {
+                list = response.body().getData();
+                adapter = new StatusBillAdapter(getBaseContext(),list);
+                rcv.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ReceBillMores> call, Throwable t) {
+
+            }
+        });
     }
 }
