@@ -39,30 +39,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
         super.onMessageReceived(message);
-        Log.e("TAG", "onMessageReceived: " );
-        Map<String,String> stringMap = message.getData();
-        String title = stringMap.get("tilte");
+        Log.e("TAG", "onMessageReceived: ");
+
+        Map<String, String> stringMap = message.getData();
+        String title = stringMap.get("title");
         String body = stringMap.get("body");
         String status = stringMap.get("status");
-        sendNotification(title,body,(status!=null)?Integer.parseInt(status):0);
-        Notify notify = new Notify();
-        notify.setId_user(ACCOUNT.user.get_id());
-        notify.setContent(body);
-        notify.setStatus((status!=null)?Integer.parseInt(status):0);
-        ApiService.apiService.addNotify(notify).enqueue(new Callback<Notify>() {
-            @Override
-            public void onResponse(Call<Notify> call, Response<Notify> response) {
-                if (response.isSuccessful()){
-//                    Toast.makeText(MyFirebaseMessagingService.this, "Đã thêm thông báo", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<Notify> call, Throwable t) {
-                Toast.makeText(MyFirebaseMessagingService.this, t + "", Toast.LENGTH_SHORT).show();
-            }
-        });
+        sendNotification(title, body, (status != null) ? Integer.parseInt(status) : 0);
+
+        if (ACCOUNT.user != null) {
+            Notify notify = new Notify();
+            notify.setId_user(ACCOUNT.user.get_id());
+            notify.setContent(body);
+            notify.setStatus((status != null) ? Integer.parseInt(status) : 0);
+
+            ApiService.apiService.addNotify(notify).enqueue(new Callback<Notify>() {
+                @Override
+                public void onResponse(Call<Notify> call, Response<Notify> response) {
+                    if (response.isSuccessful()) {
+                        // Toast.makeText(MyFirebaseMessagingService.this, "Đã thêm thông báo", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Notify> call, Throwable t) {
+                    Toast.makeText(MyFirebaseMessagingService.this, t + "", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Log.e("MyFirebaseMessagingService", "ACCOUNT.user is null");
+        }
     }
+
     private void sendNotification(String title, String body, int status) {
         Intent intent;
         if (status == 0) {

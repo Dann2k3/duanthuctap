@@ -1,66 +1,173 @@
 package account.fpoly.s_shop_client.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import account.fpoly.s_shop_client.API.API;
+import account.fpoly.s_shop_client.Activity.SplassActivity;
+import account.fpoly.s_shop_client.Adapter.StatusBillAdapter;
+import account.fpoly.s_shop_client.Modal.BillMore;
+import account.fpoly.s_shop_client.Modal.Cart;
+import account.fpoly.s_shop_client.NotifyActivity;
 import account.fpoly.s_shop_client.R;
+import account.fpoly.s_shop_client.Tools.ACCOUNT;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LichsuFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class LichsuFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class LichsuFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public LichsuFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LichsuFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LichsuFragment newInstance(String param1, String param2) {
-        LichsuFragment fragment = new LichsuFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    ImageView img_back, img_noti_lichsu;
+    RecyclerView rcv;
+    List<BillMore> list;
+    StatusBillAdapter adapter;String iduser;
+    TextView title;
+    LinearLayout ln_cart_emty;
+    Button btn_buy_cart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lichsu, container, false);
+        View view =inflater.inflate(R.layout.fragment_lichsu, container, false);
+        rcv=view.findViewById(R.id.rcv_lichsu);
+        img_noti_lichsu=view.findViewById(R.id.img_noti_lichsu);
+        ln_cart_emty=view.findViewById(R.id.ln_cart_emty);
+        btn_buy_cart=view.findViewById(R.id.btn_buy_cart);
+        SharedPreferences preferences = getActivity().getSharedPreferences("infoUser", Context.MODE_PRIVATE);
+        iduser = preferences.getString("iduser", null);
+        list = new ArrayList<>();
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        rcv.setLayoutManager(manager);
+//       swipeRefreshLayoutlichsu = view.findViewById(R.id.swiperefreshlayoutlichsu);
+//       swipeRefreshLayoutlichsu.setOnRefreshListener(this);
+        img_noti_lichsu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ACCOUNT.user == null){
+                    ln_cart_emty.setVisibility(View.VISIBLE);
+                    btn_buy_cart.setText("Đăng nhập để mua sắm");
+                    btn_buy_cart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getActivity(), SplassActivity.class));
+                        }
+                    });
+                    return;
+                }
+                else {
+                    startActivity(new Intent(getActivity(), NotifyActivity.class));
+                }
+            }
+        });
+        hienthiHistoty();
+
+        return view;
+    }
+
+
+    String idpro;
+    private void hienthiHistoty() {
+
+        if (ACCOUNT.user == null){
+            ln_cart_emty.setVisibility(View.VISIBLE);
+            btn_buy_cart.setText("Đăng nhập để mua sắm");
+            btn_buy_cart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), SplassActivity.class));
+                }
+            });
+            return;
+        }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API.api + "billStatus?id_user=" + iduser + "&status=5", null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        BillMore bill = new BillMore();
+                        bill.set_id(jsonObject.getString("_id"));
+                        bill.setName(jsonObject.getString("name"));
+                        bill.setPhone(jsonObject.getString("phone"));
+                        bill.setAddress(jsonObject.getString("address"));
+                        bill.setTotal(jsonObject.getInt("total"));
+                        bill.setStatus(Integer.parseInt(jsonObject.getString("status")));
+
+                        JSONArray jsonArrayList = jsonObject.getJSONArray("list");
+                        ArrayList<Cart> cartList = new ArrayList<>();
+                        for (int j = 0; j < jsonArrayList.length(); j++) {
+                            JSONObject jsonObjectList = jsonArrayList.getJSONObject(j);
+                            Cart cart = new Cart();
+
+                            cart.setId_product(jsonObjectList.getString("id_product"));
+                            cart.setSize(jsonObjectList.getInt("size"));
+                            cart.setQuantity(jsonObjectList.getInt("quantity"));
+                            cart.setPrice_product(jsonObjectList.getInt("price_product"));
+                            cart.setName_product(jsonObjectList.getString("name_product"));
+                            cart.setImage(jsonObjectList.getString("image"));
+                            // Populate other fields of the Cart object
+                            cartList.add(cart);
+                        }
+                        bill.setList(cartList);
+                        list.add(bill);
+                    }
+                    adapter = new StatusBillAdapter(getContext(),list);
+                    rcv.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
+    @Override
+    public void onRefresh() {
+        adapter.notifyDataSetChanged();
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                swipeRefreshLayoutlichsu.setRefreshing(false);
+//            }
+//        },2000);
     }
 }

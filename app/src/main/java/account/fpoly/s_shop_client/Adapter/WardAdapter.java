@@ -18,6 +18,7 @@ import account.fpoly.s_shop_client.R;
 import account.fpoly.s_shop_client.Tools.ADDRESS;
 
 public class WardAdapter extends RecyclerView.Adapter<WardAdapter.WardViewHolder>{
+
     private final Context context;
     private List<Ward> list;
 
@@ -33,6 +34,7 @@ public class WardAdapter extends RecyclerView.Adapter<WardAdapter.WardViewHolder
         this.list = list;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public WardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,10 +56,15 @@ public class WardAdapter extends RecyclerView.Adapter<WardAdapter.WardViewHolder
         }
     }
 
-
     @Override
     public int getItemCount() {
-        return (list != null) ? list.size() : 0;
+        if (list != null) {
+            if (ADDRESS.ward != null) {
+                return 1;
+            }
+            return list.size();
+        }
+        return 0;
     }
 
     public static class WardViewHolder extends RecyclerView.ViewHolder {

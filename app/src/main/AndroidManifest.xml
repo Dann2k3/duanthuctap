@@ -27,6 +27,9 @@
             android:name=".Activity.ChitietProduct"
             android:exported="false" />
         <activity
+            android:name=".Activity.ForgetPassActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ContactUsActivity"
             android:exported="false" />
         <activity
@@ -39,22 +42,35 @@
             android:name=".Activity.DangKyActivity"
             android:exported="false" />
         <activity
+            android:name=".NotifyActivity"
+            android:exported="false" />
+        <activity android:name=".Xacnhan_Bill"
+            android:exported="false"/>
+        <activity android:name=".Activity.AddressActivity"
+            android:exported="false"/>
+        <activity
             android:name=".Activity.AddCommentActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.AddAddressActivity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".DangGiao_Activity"-->
-<!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".DaGiao_activity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".DangGiao_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".DaGiao_activity"
+            android:exported="false" />
+        <activity android:name=".HuyBill"
+            android:exported="false"/>
+        <activity android:name=".InfoUserActivity"
+            android:exported="false"/>
+        <activity android:name=".Update_PassWord"
+        android:exported="false"/>
         <activity
             android:name=".Activity.Chat_Admin"
             android:exported="false" />
         <activity
-            android:name=".Activity.DangKyActivity"
+            android:name=".MuaProduct"
             android:exported="false" />
         <activity
             android:name=".Activity.Tab_Giaodien_Activity"
